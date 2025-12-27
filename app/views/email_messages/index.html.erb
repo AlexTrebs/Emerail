@@ -1,0 +1,137 @@
+<div class="outlook-layout">
+  <!-- Left Sidebar -->
+  <div class="outlook-sidebar">
+    <div class="sidebar-header">Folders</div>
+
+    <div class="sidebar-section">
+      <%= link_to email_messages_path, class: "sidebar-item #{params[:status].blank? && params[:account_id].blank? ? 'active' : ''}" do %>
+        <svg class="sidebar-icon" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M2 3.5A1.5 1.5 0 013.5 2h9A1.5 1.5 0 0114 3.5v9a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 12.5v-9zm1.5-.5a.5.5 0 00-.5.5v.793l5.5 3.3 5.5-3.3V3.5a.5.5 0 00-.5-.5h-9zm6.354 4.854L3 4.207V12.5a.5.5 0 00.5.5h9a.5.5 0 00.5-.5V4.207l-6.854 3.647z"/>
+        </svg>
+        <span class="sidebar-item-text">Inbox</span>
+        <span class="sidebar-item-count"><%= @total_count %></span>
+      <% end %>
+
+      <%= link_to email_messages_path(status: 'unread'), class: "sidebar-item #{params[:status] == 'unread' ? 'active' : ''}" do %>
+        <svg class="sidebar-icon" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M2 2a2 2 0 012-2h8a2 2 0 012 2v13.5a.5.5 0 01-.777.416L8 13.101l-5.223 2.815A.5.5 0 012 15.5V2zm2-1a1 1 0 00-1 1v12.566l4.723-2.482a.5.5 0 01.554 0L13 14.566V2a1 1 0 00-1-1H4z"/>
+        </svg>
+        <span class="sidebar-item-text">Unread</span>
+        <span class="sidebar-item-count"><%= @unread_count %></span>
+      <% end %>
+
+      <%= link_to email_messages_path(status: 'read'), class: "sidebar-item #{params[:status] == 'read' ? 'active' : ''}" do %>
+        <svg class="sidebar-icon" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 15A7 7 0 118 1a7 7 0 010 14zm0 1A8 8 0 108 0a8 8 0 000 16z"/>
+          <path d="M10.97 4.97a.235.235 0 00-.02.022L7.477 9.417 5.384 7.323a.75.75 0 00-1.06 1.06L6.97 11.03a.75.75 0 001.079-.02l3.992-4.99a.75.75 0 00-1.071-1.05z"/>
+        </svg>
+        <span class="sidebar-item-text">Read</span>
+        <span class="sidebar-item-count"><%= @total_count - @unread_count %></span>
+      <% end %>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Accounts</div>
+      <% current_user.email_accounts.each do |account| %>
+        <%= link_to email_messages_path(account_id: account.id), class: "sidebar-item #{params[:account_id] == account.id.to_s ? 'active' : ''}" do %>
+          <svg class="sidebar-icon" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M0 4a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H2a2 2 0 01-2-2V4zm2-1a1 1 0 00-1 1v.217l7 4.2 7-4.2V4a1 1 0 00-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 002 13h12a1 1 0 00.966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
+          </svg>
+          <span class="sidebar-item-text"><%= account.username %></span>
+        <% end %>
+      <% end %>
+      <%= link_to new_email_account_path, class: "sidebar-item" do %>
+        <svg class="sidebar-icon" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 4a.5.5 0 01.5.5v3h3a.5.5 0 010 1h-3v3a.5.5 0 01-1 0v-3h-3a.5.5 0 010-1h3v-3A.5.5 0 018 4z"/>
+        </svg>
+        <span class="sidebar-item-text">Add Account</span>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Middle Pane (Email List) -->
+  <div class="outlook-middle">
+    <div class="inbox-header">
+      <h1>Inbox</h1>
+      <div class="inbox-stats">
+        <span class="stat">Total: <%= @total_count %></span>
+        <span class="stat">Unread: <%= @unread_count %></span>
+      </div>
+    </div>
+
+    <div class="inbox-filters">
+      <%= form_with url: email_messages_path, method: :get, class: "filter-form", data: { turbo_frame: "_top" } do |f| %>
+        <div class="filter-search-row">
+          <div class="filter-search-container">
+            <svg class="search-icon" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M11.742 10.344a6.5 6.5 0 10-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 001.415-1.414l-3.85-3.85a1.007 1.007 0 00-.115-.1zM12 6.5a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0z"/>
+            </svg>
+            <%= f.text_field :search,
+                placeholder: "Search",
+                value: params[:search],
+                class: "filter-search-input",
+                onchange: "this.form.requestSubmit()" %>
+          </div>
+
+          <button type="button" class="filter-toggle-btn" onclick="this.classList.toggle('active'); document.querySelector('.filter-dropdown-container').classList.toggle('expanded')">
+            <svg class="filter-toggle-icon" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M1.5 1.5A.5.5 0 012 1h12a.5.5 0 01.5.5v2a.5.5 0 01-.128.334L10 8.692V13.5a.5.5 0 01-.342.474l-3 1A.5.5 0 016 14.5V8.692L1.628 3.834A.5.5 0 011.5 3.5v-2z"/>
+            </svg>
+            Filters
+          </button>
+        </div>
+
+        <div class="filter-dropdown-container">
+          <%= f.select :account_id,
+              options_for_select([["All Accounts", ""]] + current_user.email_accounts.map { |a| [a.username, a.id] }, params[:account_id]),
+              {},
+              class: "filter-dropdown-clean",
+              onchange: "this.form.requestSubmit()" %>
+
+          <%= f.select :status,
+              options_for_select([["All Messages", ""], ["Unread", "unread"], ["Read", "read"]], params[:status]),
+              {},
+              class: "filter-dropdown-clean",
+              onchange: "this.form.requestSubmit()" %>
+
+          <%= f.select :attachments,
+              options_for_select([["All", ""], ["With Attachments", "true"]], params[:attachments]),
+              {},
+              class: "filter-dropdown-clean",
+              onchange: "this.form.requestSubmit()" %>
+
+          <% if params[:search].present? || params[:account_id].present? || params[:status].present? || params[:attachments].present? %>
+            <%= link_to email_messages_path, class: "filter-clear-btn" do %>
+              <svg viewBox="0 0 16 16" fill="currentColor">
+                <path d="M4.646 4.646a.5.5 0 01.708 0L8 7.293l2.646-2.647a.5.5 0 01.708.708L8.707 8l2.647 2.646a.5.5 0 01-.708.708L8 8.707l-2.646 2.647a.5.5 0 01-.708-.708L7.293 8 4.646 5.354a.5.5 0 010-.708z"/>
+              </svg>
+              Clear filters
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <% if @messages.any? %>
+      <div class="email-list" data-controller="email-list">
+        <%= render "pagination", messages: @messages %>
+      </div>
+    <% else %>
+      <div class="empty-state">
+        <h2>No emails yet</h2>
+        <p>Add an email account to start receiving messages.</p>
+        <%= link_to "Add Email Account", new_email_account_path, class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Right Pane (Email Viewer) -->
+  <div class="outlook-right">
+    <%= turbo_frame_tag "email_viewer" do %>
+      <div class="empty-state" style="margin-top: 100px;">
+        <h2>Select an email to read</h2>
+        <p>Choose an email from the list to view its contents here.</p>
+      </div>
+    <% end %>
+  </div>
+</div>

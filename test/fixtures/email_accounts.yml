@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  provider: 1
+  imap_host: MyString
+  imap_port: 1
+  imap_ssl: false
+  username: MyString
+  password_digest: MyString
+
+two:
+  user: two
+  provider: 1
+  imap_host: MyString
+  imap_port: 1
+  imap_ssl: false
+  username: MyString
+  password_digest: MyString

@@ -1,0 +1,4 @@
+sync_all_accounts:
+  cron: "*/15 * * * *"  # Every 15 minutes
+  class: "SyncAllAccountsJob"
+  description: "Sync all email accounts every 15 minutes"

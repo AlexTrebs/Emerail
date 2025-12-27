@@ -1,0 +1,74 @@
+<div class="form-container">
+  <h1>Add Email Account</h1>
+
+  <%= form_with model: @account, url: email_accounts_path, class: "email-account-form" do |f| %>
+    <% if @account.errors.any? %>
+      <div class="error-messages">
+        <h3><%= pluralize(@account.errors.count, "error") %> prohibited this account from being saved:</h3>
+        <ul>
+          <% @account.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :provider, "Email Provider" %>
+      <%= f.select :provider, 
+          [["IMAP (Gmail, Outlook, Yahoo, etc.)", "imap"], 
+           ["Gmail OAuth (Coming Soon)", "gmail_oauth", { disabled: true }], 
+           ["Outlook OAuth (Coming Soon)", "outlook_oauth", { disabled: true }]],
+          {},
+          class: "form-control",
+          id: "provider-select" %>
+      <small class="form-text">Choose IMAP for most email providers</small>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :username, "Email Address" %>
+      <%= f.text_field :username, class: "form-control", placeholder: "your.email@example.com" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password, "Password" %>
+      <%= f.password_field :password, class: "form-control", placeholder: "Your email password or app password" %>
+      <small class="form-text">For Gmail/Yahoo, use an app-specific password</small>
+    </div>
+
+    <div id="imap-settings">
+      <h3>IMAP Settings</h3>
+
+      <div class="form-group">
+        <%= f.label :imap_host, "IMAP Server" %>
+        <%= f.text_field :imap_host, class: "form-control", placeholder: "imap.gmail.com" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :imap_port, "Port" %>
+        <%= f.number_field :imap_port, class: "form-control", placeholder: "993", value: 993 %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :imap_ssl, class: "checkbox-label" do %>
+          <%= f.check_box :imap_ssl, checked: true %>
+          Use SSL/TLS (Recommended)
+        <% end %>
+      </div>
+
+      <div class="provider-hints">
+        <h4>Common Settings:</h4>
+        <ul>
+          <li><strong>Gmail:</strong> imap.gmail.com:993 (SSL)</li>
+          <li><strong>Outlook/Hotmail:</strong> outlook.office365.com:993 (SSL)</li>
+          <li><strong>Yahoo:</strong> imap.mail.yahoo.com:993 (SSL)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit "Add Account", class: "btn btn-primary" %>
+      <%= link_to "Cancel", email_accounts_path, class: "btn btn-secondary" %>
+    </div>
+  <% end %>
+</div>

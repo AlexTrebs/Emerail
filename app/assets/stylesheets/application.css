@@ -1,0 +1,944 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ *
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into separate files for maintainability.
+ */
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.5;
+  color: #323130;
+  background-color: #ffffff;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Navigation */
+.navbar {
+  background-color: #0078d4;
+  color: white;
+  padding: 0;
+  height: 48px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+  max-width: 100%;
+  height: 100%;
+  padding: 0 16px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-brand .brand-link {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-logo {
+  height: 60px;
+  width: 60px;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 2px;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link.active {
+  background-color: rgba(255, 255, 255, 0.2);
+  font-weight: 600;
+  pointer-events: none;
+  cursor: default;
+}
+
+.nav-user {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+  padding: 6px 12px;
+}
+
+.logout-btn {
+  padding: 6px 12px;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  border-radius: 2px;
+}
+
+.logout-btn:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Container */
+.container {
+  max-width: 100%;
+  height: calc(100vh - 48px);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Alerts */
+.alert {
+  padding: 12px 16px;
+  margin: 8px;
+  border-radius: 2px;
+  font-size: 13px;
+}
+
+.alert-success {
+  background-color: #dff6dd;
+  color: #107c10;
+  border-left: 3px solid #107c10;
+}
+
+.alert-danger {
+  background-color: #fde7e9;
+  color: #a80000;
+  border-left: 3px solid #a80000;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.btn-primary {
+  background-color: #0078d4;
+  color: white;
+  border-color: #0078d4;
+}
+
+.btn-primary:hover {
+  background-color: #106ebe;
+  border-color: #106ebe;
+}
+
+.btn-secondary {
+  background-color: #ffffff;
+  color: #323130;
+  border-color: #8a8886;
+}
+
+.btn-secondary:hover {
+  background-color: #f3f2f1;
+}
+
+.btn-danger {
+  background-color: #a80000;
+  color: white;
+  border-color: #a80000;
+}
+
+.btn-danger:hover {
+  background-color: #8e0000;
+}
+
+/* Three-Pane Layout */
+.outlook-layout {
+  display: flex;
+  height: 100%;
+  background-color: #ffffff;
+}
+
+/* Left Sidebar (Folders) */
+.outlook-sidebar {
+  width: 260px;
+  background-color: #ffffff;
+  border-right: 1px solid #edebe9;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.sidebar-header {
+  padding: 12px 16px 8px 16px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #323130;
+  border-bottom: none;
+}
+
+.sidebar-section {
+  padding: 4px 0;
+}
+
+.sidebar-section-title {
+  padding: 16px 16px 4px 16px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #605e5c;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  margin: 0 8px;
+  color: #323130;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.1s;
+  border-radius: 4px;
+}
+
+.sidebar-item:hover {
+  background-color: #f3f2f1;
+}
+
+.sidebar-item.active {
+  background-color: #e6f3ff;
+  border-left: none;
+}
+
+.sidebar-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  color: #605e5c;
+}
+
+.sidebar-item.active .sidebar-icon {
+  color: #0078d4;
+}
+
+.sidebar-item-text {
+  flex: 1;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.sidebar-item-count {
+  font-size: 13px;
+  color: #605e5c;
+  font-weight: 600;
+}
+
+/* Middle Pane (Email List) */
+.outlook-middle {
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-right: 1px solid #edebe9;
+}
+
+.inbox-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #edebe9;
+  background-color: #ffffff;
+}
+
+.inbox-header h1 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #323130;
+}
+
+.inbox-stats {
+  display: flex;
+  gap: 12px;
+}
+
+.stat {
+  padding: 0;
+  background-color: transparent;
+  font-size: 13px;
+  color: #605e5c;
+}
+
+/* Filters - Clean Outlook Style */
+.inbox-filters {
+  background-color: #ffffff;
+  padding: 8px 16px;
+  border-bottom: 1px solid #edebe9;
+}
+
+.filter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-search-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.filter-search-container {
+  position: relative;
+  flex: 1;
+}
+
+.search-icon {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  color: #605e5c;
+  pointer-events: none;
+}
+
+.filter-search-input {
+  width: 100%;
+  padding: 6px 8px 6px 28px;
+  border: 1px solid #edebe9;
+  border-radius: 2px;
+  font-size: 13px;
+  background-color: #faf9f8;
+  transition: all 0.15s;
+}
+
+.filter-search-input:focus {
+  outline: none;
+  border-color: #0078d4;
+  background-color: #ffffff;
+}
+
+.filter-search-input::placeholder {
+  color: #8a8886;
+}
+
+.filter-toggle-btn {
+  padding: 6px 10px;
+  border: 1px solid #edebe9;
+  border-radius: 2px;
+  font-size: 13px;
+  color: #323130;
+  background-color: #faf9f8;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.filter-toggle-btn:hover {
+  background-color: #f3f2f1;
+  border-color: #d2d0ce;
+}
+
+.filter-toggle-btn.active {
+  background-color: #e6f3ff;
+  border-color: #0078d4;
+  color: #0078d4;
+}
+
+.filter-toggle-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.filter-dropdown-container {
+  display: none;
+  gap: 4px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-dropdown-container.expanded {
+  display: flex;
+}
+
+.filter-dropdown-clean {
+  padding: 6px 24px 6px 8px;
+  border: 1px solid #edebe9;
+  border-radius: 2px;
+  font-size: 13px;
+  color: #323130;
+  background-color: #faf9f8;
+  cursor: pointer;
+  outline: none;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+  transition: all 0.15s;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23605e5c' d='M2.5 4.5L6 8l3.5-3.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.filter-dropdown-clean:hover {
+  background-color: #f3f2f1;
+  border-color: #d2d0ce;
+}
+
+.filter-dropdown-clean:focus {
+  border-color: #0078d4;
+  background-color: #ffffff;
+}
+
+.filter-clear-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  font-size: 12px;
+  color: #0078d4;
+  background-color: transparent;
+  border: none;
+  text-decoration: none;
+  transition: all 0.15s;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.filter-clear-btn svg {
+  width: 10px;
+  height: 10px;
+}
+
+.filter-clear-btn:hover {
+  background-color: #f3f2f1;
+  border-radius: 2px;
+}
+
+/* Email List - Outlook Style */
+.email-list {
+  background-color: #ffffff;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.email-item {
+  border-bottom: 1px solid #edebe9;
+  transition: background-color 0.05s;
+  cursor: pointer;
+}
+
+.email-item:hover {
+  background-color: #f3f2f1;
+}
+
+.email-item.selected {
+  background-color: #e6f3ff;
+  border-left: 3px solid #0078d4;
+  padding-left: 0;
+}
+
+.email-item.selected .email-link {
+  padding-left: 13px;
+}
+
+.email-item.unread {
+  background-color: #f6f6f6;
+  border-left: 3px solid #0078d4;
+  padding-left: 0;
+}
+
+.email-item.unread .email-from,
+.email-item.unread .email-subject {
+  font-weight: 600;
+}
+
+.email-link {
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: inherit;
+  align-items: flex-start;
+}
+
+.email-item.unread .email-link {
+  padding-left: 13px;
+}
+
+.email-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+.email-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.email-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.email-from {
+  font-size: 13px;
+  color: #323130;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.email-date {
+  color: #605e5c;
+  font-size: 11px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.email-subject-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.email-subject {
+  font-size: 13px;
+  color: #323130;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.attachment-icon {
+  width: 12px;
+  height: 12px;
+  color: #605e5c;
+  flex-shrink: 0;
+}
+
+.email-preview {
+  color: #605e5c;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Right Pane (Reading Pane) */
+.outlook-right {
+  flex: 1;
+  background-color: #ffffff;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Email Detail - Reading Pane */
+.email-detail {
+  background-color: white;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.email-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px 24px;
+  border-bottom: 1px solid #edebe9;
+  background-color: #ffffff;
+}
+
+.email-header-info {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.email-avatar-large {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+.email-from-large {
+  font-size: 15px;
+  font-weight: 600;
+  color: #323130;
+  margin-bottom: 2px;
+}
+
+.email-to-small {
+  font-size: 12px;
+  color: #605e5c;
+}
+
+.email-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+.email-subject-header {
+  padding: 12px 24px;
+  border-bottom: 1px solid #edebe9;
+}
+
+.email-subject-detail {
+  font-size: 18px;
+  font-weight: 600;
+  color: #323130;
+  margin: 0 0 6px 0;
+}
+
+.email-date-detail {
+  font-size: 12px;
+  color: #605e5c;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.attachment-icon-large {
+  width: 14px;
+  height: 14px;
+  color: #605e5c;
+}
+
+.email-body {
+  line-height: 1.6;
+  color: #323130;
+  padding: 24px;
+  flex: 1;
+  overflow-y: auto;
+  font-size: 14px;
+}
+
+/* Accounts */
+.accounts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: white;
+  border-bottom: 1px solid #edebe9;
+}
+
+.accounts-header h1 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #323130;
+}
+
+.accounts-list {
+  display: grid;
+  gap: 12px;
+  padding: 20px;
+}
+
+.account-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 2px;
+  border: 1px solid #edebe9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: box-shadow 0.1s;
+}
+
+.account-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.account-info {
+  flex: 1;
+}
+
+.account-username {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #323130;
+}
+
+.account-details {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.detail-item {
+  color: #605e5c;
+  font-size: 13px;
+}
+
+.account-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Forms */
+.form-container {
+  background-color: white;
+  padding: 32px;
+  border-radius: 2px;
+  border: 1px solid #edebe9;
+  max-width: 600px;
+  margin: 20px;
+}
+
+.form-container h1 {
+  margin-bottom: 24px;
+  color: #323130;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #323130;
+  font-size: 14px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #8a8886;
+  border-radius: 2px;
+  font-size: 14px;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #0078d4;
+  box-shadow: 0 0 0 1px #0078d4;
+}
+
+.form-text {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #605e5c;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: normal;
+}
+
+.error-messages {
+  background-color: #fde7e9;
+  color: #a80000;
+  padding: 12px 16px;
+  border-radius: 2px;
+  margin-bottom: 20px;
+  border-left: 3px solid #a80000;
+}
+
+.error-messages h3 {
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.error-messages ul {
+  margin-left: 20px;
+  font-size: 13px;
+}
+
+.provider-hints {
+  background-color: #f3f2f1;
+  padding: 12px 16px;
+  border-radius: 2px;
+  margin-top: 12px;
+  border-left: 3px solid #0078d4;
+}
+
+.provider-hints h4 {
+  margin-bottom: 8px;
+  color: #323130;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.provider-hints ul {
+  margin-left: 20px;
+  color: #323130;
+  font-size: 13px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 24px;
+  background-color: white;
+}
+
+.empty-state h2 {
+  color: #605e5c;
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.empty-state p {
+  color: #8a8886;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+/* Loading Indicator */
+.loading-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  color: #605e5c;
+  font-size: 13px;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #edebe9;
+  border-top-color: #0078d4;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px;
+  border-top: 1px solid #edebe9;
+  background-color: #faf9f8;
+}
+
+/* Devise Forms */
+.devise-form {
+  max-width: 400px;
+  margin: 60px auto;
+  background-color: white;
+  padding: 40px;
+  border-radius: 2px;
+  border: 1px solid #edebe9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.devise-form h2 {
+  margin-bottom: 24px;
+  color: #323130;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.devise-links {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.devise-links a {
+  color: #0078d4;
+  text-decoration: none;
+}
+
+.devise-links a:hover {
+  text-decoration: underline;
+}

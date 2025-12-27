@@ -1,0 +1,39 @@
+<%= turbo_frame_tag "pagination_frame_#{@messages.current_page}" do %>
+  <% @messages.each do |message| %>
+    <div class="email-item <%= 'unread' unless message.read? %>" id="email-<%= message.id %>" data-email-list-target="item">
+      <%= link_to email_message_path(message), class: "email-link", data: { turbo_frame: "email_viewer", action: "click->email-list#selectEmail" } do %>
+        <div class="email-avatar" style="background-color: <%= avatar_color(message.from_address) %>">
+          <%= email_initials(message.from_address) %>
+        </div>
+        <div class="email-content">
+          <div class="email-header-row">
+            <span class="email-from"><%= message.from_address.split('<').first.strip %></span>
+            <span class="email-date"><%= time_ago_in_words(message.date) %> ago</span>
+          </div>
+          <div class="email-subject-row">
+            <span class="email-subject"><%= message.subject || "(No Subject)" %></span>
+            <% if message.has_attachments? %>
+              <svg class="attachment-icon" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M4.5 3a2.5 2.5 0 015 0v9a1.5 1.5 0 01-3 0V5a.5.5 0 011 0v7a.5.5 0 001 0V3a1.5 1.5 0 10-3 0v9a2.5 2.5 0 005 0V5a.5.5 0 011 0v7a3.5 3.5 0 11-7 0V3z"/>
+              </svg>
+            <% end %>
+          </div>
+          <div class="email-preview">
+            <%= truncate(strip_tags(message.body), length: 80) %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @messages.next_page %>
+    <%= turbo_frame_tag "pagination_frame_#{@messages.next_page}",
+        src: url_for(request.params.merge(page: @messages.next_page)),
+        loading: :lazy do %>
+      <div class="loading-indicator">
+        <div class="spinner"></div>
+        <span>Loading more emails...</span>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

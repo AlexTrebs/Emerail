@@ -1,0 +1,48 @@
+<%= turbo_frame_tag "email_viewer" do %>
+  <div class="email-detail">
+    <div class="email-header">
+      <div class="email-header-info">
+        <div class="email-avatar-large" style="background-color: <%= avatar_color(@message.from_address) %>">
+          <%= email_initials(@message.from_address) %>
+        </div>
+        <div>
+          <div class="email-from-large"><%= @message.from_address.split('<').first.strip %></div>
+          <div class="email-to-small">To: <%= @message.to_addresses.join(", ") %></div>
+        </div>
+      </div>
+
+      <div class="email-actions">
+        <% if @message.read? %>
+          <%= button_to "Mark as Unread", mark_unread_email_message_path(@message), method: :patch, class: "btn btn-secondary btn-sm" %>
+        <% else %>
+          <%= button_to "Mark as Read", mark_read_email_message_path(@message), method: :patch, class: "btn btn-primary btn-sm" %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="email-subject-header">
+      <h1 class="email-subject-detail"><%= @message.subject || "(No Subject)" %></h1>
+      <div class="email-date-detail">
+        <%= @message.date&.strftime("%a, %b %d, %Y at %l:%M %p") %>
+        <% if @message.has_attachments? %>
+          <svg class="attachment-icon-large" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M4.5 3a2.5 2.5 0 015 0v9a1.5 1.5 0 01-3 0V5a.5.5 0 011 0v7a.5.5 0 001 0V3a1.5 1.5 0 10-3 0v9a2.5 2.5 0 005 0V5a.5.5 0 011 0v7a3.5 3.5 0 11-7 0V3z"/>
+          </svg>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="email-body">
+      <% if @message.html_body.present? %>
+        <iframe
+          srcdoc="<%= ERB::Util.html_escape(@message.html_body) %>"
+          style="width: 100%; min-height: 500px; border: none;"
+          sandbox="allow-same-origin"
+          onload="this.style.height = this.contentWindow.document.body.scrollHeight + 'px'">
+        </iframe>
+      <% else %>
+        <%= simple_format(@message.body) %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

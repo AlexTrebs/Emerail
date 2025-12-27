@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Emerail" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Emerail">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/emerail.ico" type="image/x-icon">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <% if user_signed_in? %>
+      <nav class="navbar">
+        <div class="nav-container">
+          <div class="nav-brand">
+            <%= link_to root_path, class: "brand-link" do %>
+              <img src="/emerail.svg" class="brand-logo" alt="Emerail">
+              <span>Emerail</span>
+            <% end %>
+          </div>
+          <div class="nav-links">
+            <%= link_to "Inbox", root_path, class: "nav-link #{controller_name == 'email_messages' ? 'active' : ''}" %>
+            <%= link_to current_user.email, email_accounts_path, class: "nav-link #{controller_name == 'email_accounts' && action_name == 'index' ? 'active' : ''}" %>
+            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link logout-btn" %>
+          </div>
+        </div>
+      </nav>
+    <% end %>
+
+    <div class="container">
+      <% if notice %>
+        <div class="alert alert-success"><%= notice %></div>
+      <% end %>
+      <% if alert %>
+        <div class="alert alert-danger"><%= alert %></div>
+      <% end %>
+
+      <%= yield %>
+    </div>
+  </body>
+</html>
